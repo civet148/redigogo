@@ -35,7 +35,7 @@ func newCache(c *redigogo.Config) (cache redigogo.Cache) {
 			}
 
 			if c.Password != "" {
-				//验证redis密码
+				//redis auth password
 				if _, err := r.Do(redigogo.REDIS_CMD_AUTH, c.Password); err != nil {
 
 					return nil, fmt.Errorf("redis auth password error [%s]", err.Error())

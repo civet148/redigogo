@@ -35,6 +35,11 @@ func newCache(c *redigogo.Config) (cache redigogo.Cache) {
 	if err != nil {
 		panic(fmt.Sprintf("redis cluster node [%v] connect error [%v] with config [%+v]", StartNodes, err.Error(), c))
 	}
+	//redis auth password
+	if _, err := cluster.Do(redigogo.REDIS_CMD_AUTH, c.Password); err != nil {
+
+		panic(fmt.Sprintf("redis auth error [%s]", err))
+	}
 	return &RedisCluster{cluster: cluster}
 }
 
