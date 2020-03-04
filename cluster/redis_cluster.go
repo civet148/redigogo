@@ -1,0 +1,93 @@
+package cluster
+
+import (
+	"fmt"
+	"github.com/civet148/redigogo"
+	"github.com/gitstliu/go-redis-cluster"
+	"time"
+)
+
+type RedisCluster struct {
+	cluster *redis.Cluster
+}
+
+func init() {
+
+	if err := redigogo.Register(redigogo.AdapterType_Cluster, newCache); err != nil {
+		panic(err.Error())
+	}
+}
+
+func newCache(c *redigogo.Config) (cache redigogo.Cache) {
+
+	var StartNodes []string
+	StartNodes = append(StartNodes, c.MasterHost)
+	StartNodes = append(StartNodes, c.ReplicateHosts...)
+	cluster, err := redis.NewCluster(&redis.Options{
+		StartNodes:   StartNodes,
+		ConnTimeout:  time.Duration(c.ConnTimeout) * time.Millisecond,
+		ReadTimeout:  time.Duration(c.ReadTimeout) * time.Millisecond,
+		WriteTimeout: time.Duration(c.WriteTimeout) * time.Millisecond,
+		KeepAlive:    c.KeepAlive,
+		AliveTime:    time.Duration(c.AliveTime) * time.Second,
+	})
+
+	if err != nil {
+		panic(fmt.Sprintf("redis cluster node [%v] connect error [%v] with config [%+v]", StartNodes, err.Error(), c))
+	}
+	return &RedisCluster{cluster: cluster}
+}
+
+func (c *RedisCluster) Close() {
+	c.cluster.Close()
+}
+
+func (c *RedisCluster) Do(cmd string, args ...interface{}) (v interface{}, e error) {
+
+	return c.cluster.Do(cmd, args...)
+}
+
+func (c *RedisCluster) Int(reply interface{}, err error) (v int, e error) {
+
+	return redis.Int(reply, err)
+}
+
+func (c *RedisCluster) Int64(reply interface{}, err error) (v int64, e error) {
+	return redis.Int64(reply, err)
+}
+
+func (c *RedisCluster) Float64(reply interface{}, err error) (v float64, e error) {
+	return redis.Float64(reply, err)
+}
+
+func (c *RedisCluster) String(reply interface{}, err error) (v string, e error) {
+	return redis.String(reply, err)
+}
+
+func (c *RedisCluster) Bytes(reply interface{}, err error) (v []byte, e error) {
+	return redis.Bytes(reply, err)
+}
+
+func (c *RedisCluster) Bool(reply interface{}, err error) (v bool, e error) {
+	return redis.Bool(reply, err)
+}
+
+func (c *RedisCluster) Values(reply interface{}, err error) (v []interface{}, e error) {
+	return redis.Values(reply, err)
+}
+
+func (c *RedisCluster) Ints(reply interface{}, err error) (v []int, e error) {
+	return redis.Ints(reply, err)
+}
+
+func (c *RedisCluster) Strings(reply interface{}, err error) (v []string, e error) {
+	return redis.Strings(reply, err)
+}
+
+func (c *RedisCluster) StringMap(result interface{}, err error) (v map[string]string, e error) {
+	return redis.StringMap(result, err)
+}
+
+func (c *RedisCluster) Scan(src []interface{}, dst ...interface{}) (v []interface{}, e error) {
+	return redis.Scan(src, dst...)
+}
