@@ -10,7 +10,7 @@ import (
 func main() {
 	c := redigogo.Config{
 		Password:       "",
-		Index:          0,
+		Index:          0, //default db index on redis
 		MasterHost:     "127.0.0.1:6379",
 		ReplicateHosts: nil,
 		ConnTimeout:    500,

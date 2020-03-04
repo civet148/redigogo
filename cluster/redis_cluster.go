@@ -40,6 +40,13 @@ func newCache(c *redigogo.Config) (cache redigogo.Cache) {
 
 		panic(fmt.Sprintf("redis auth error [%s]", err))
 	}
+	//redis db select
+	if c.Index != 0 {
+		if _, err := cluster.Do(redigogo.REDIS_CMD_SELECT, c.Index); err != nil {
+
+			panic(fmt.Sprintf("redis select db index error [%s]", err))
+		}
+	}
 	return &RedisCluster{cluster: cluster}
 }
 

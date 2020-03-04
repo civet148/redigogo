@@ -41,7 +41,13 @@ func newCache(c *redigogo.Config) (cache redigogo.Cache) {
 					return nil, fmt.Errorf("redis auth password error [%s]", err.Error())
 				}
 			}
+			//redis db select
+			if c.Index != 0 {
+				if _, err := r.Do(redigogo.REDIS_CMD_SELECT, c.Index); err != nil {
 
+					panic(fmt.Sprintf("redis select db index error [%s]", err))
+				}
+			}
 			return r, err
 		},
 		TestOnBorrow: func(c redis.Conn, t time.Time) error {

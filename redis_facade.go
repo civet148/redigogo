@@ -13,6 +13,7 @@ const (
 	REDIS_CMD_EVAL   = "EVAL"
 	REDIS_CMD_EXPIRE = "EXPIRE"
 	REDIS_CMD_PING   = "PING"
+	REDIS_CMD_SELECT = "SELECT"
 )
 
 const (
