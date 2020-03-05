@@ -124,7 +124,7 @@ func (r *RedisAlone) Unmarshal(dst interface{}, reply interface{}, err error) (e
 		return
 	}
 
-	if e = json.Unmarshal(v, dst); err != nil {
+	if e = json.Unmarshal(v, dst); e != nil {
 		return
 	}
 	return

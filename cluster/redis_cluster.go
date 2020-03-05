@@ -99,7 +99,7 @@ func (c *RedisCluster) Unmarshal(dst interface{}, reply interface{}, err error) 
 		return
 	}
 
-	if e = json.Unmarshal(v, dst); err != nil {
+	if e = json.Unmarshal(v, dst); e != nil {
 		return
 	}
 	return
