@@ -1,6 +1,7 @@
 package cluster
 
 import (
+	"encoding/json"
 	"fmt"
 	"github.com/civet148/redigogo"
 	"github.com/gitstliu/go-redis-cluster"
@@ -90,6 +91,18 @@ func (c *RedisCluster) Values(reply interface{}, err error) (v []interface{}, e 
 
 func (c *RedisCluster) Ints(reply interface{}, err error) (v []int, e error) {
 	return redis.Ints(reply, err)
+}
+
+func (c *RedisCluster) Unmarshal(dst interface{}, reply interface{}, err error) (e error) {
+	var v []byte
+	if v, e = c.Bytes(reply, err); e != nil {
+		return
+	}
+
+	if e = json.Unmarshal(v, dst); err != nil {
+		return
+	}
+	return
 }
 
 func (c *RedisCluster) Strings(reply interface{}, err error) (v []string, e error) {

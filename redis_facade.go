@@ -71,6 +71,7 @@ type Cache interface {
 	Strings(reply interface{}, err error) ([]string, error)
 	StringMap(result interface{}, err error) (map[string]string, error)
 	Scan(src []interface{}, dst ...interface{}) ([]interface{}, error)
+	Unmarshal(dst interface{}, reply interface{}, err error) error
 }
 
 type Instance func(c *Config) Cache

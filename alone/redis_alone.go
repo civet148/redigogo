@@ -1,6 +1,7 @@
 package alone
 
 import (
+	"encoding/json"
 	"fmt"
 	"github.com/civet148/redigogo"
 	"github.com/garyburd/redigo/redis"
@@ -115,4 +116,16 @@ func (r *RedisAlone) StringMap(result interface{}, err error) (v map[string]stri
 
 func (r *RedisAlone) Scan(src []interface{}, dst ...interface{}) (v []interface{}, e error) {
 	return redis.Scan(src, dst...)
+}
+
+func (r *RedisAlone) Unmarshal(dst interface{}, reply interface{}, err error) (e error) {
+	var v []byte
+	if v, e = r.Bytes(reply, err); e != nil {
+		return
+	}
+
+	if e = json.Unmarshal(v, dst); err != nil {
+		return
+	}
+	return
 }
