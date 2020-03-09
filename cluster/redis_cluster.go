@@ -10,7 +10,7 @@ import (
 )
 
 const (
-	REDIS_CLUSTER_NIL_REPLY = "nil reply"
+	REDIS_CLUSTER_NIL_REPLY = "nil"
 )
 
 type RedisCluster struct {

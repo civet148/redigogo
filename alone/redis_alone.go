@@ -11,7 +11,7 @@ import (
 
 const (
 	REDIS_SCHEME_PREFIX   = "redis://"
-	REDIS_ALONE_NIL_REPLY = "nil returned"
+	REDIS_ALONE_NIL_REPLY = "nil"
 )
 
 type RedisAlone struct {
