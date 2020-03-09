@@ -5,11 +5,13 @@ import (
 	"fmt"
 	"github.com/civet148/redigogo"
 	"github.com/garyburd/redigo/redis"
+	"strings"
 	"time"
 )
 
 const (
-	REDIS_SCHEME_PREFIX = "redis://"
+	REDIS_SCHEME_PREFIX   = "redis://"
+	REDIS_ALONE_NIL_REPLY = "nil returned"
 )
 
 type RedisAlone struct {
@@ -128,4 +130,11 @@ func (r *RedisAlone) Unmarshal(dst interface{}, reply interface{}, err error) (e
 		return
 	}
 	return
+}
+
+func (r RedisAlone) IsNilReply(err error) bool {
+	if strings.Contains(err.Error(), REDIS_ALONE_NIL_REPLY) {
+		return true
+	}
+	return false
 }

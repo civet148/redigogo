@@ -5,7 +5,12 @@ import (
 	"fmt"
 	"github.com/civet148/redigogo"
 	"github.com/gitstliu/go-redis-cluster"
+	"strings"
 	"time"
+)
+
+const (
+	REDIS_CLUSTER_NIL_REPLY = "nil reply"
 )
 
 type RedisCluster struct {
@@ -115,4 +120,11 @@ func (c *RedisCluster) StringMap(result interface{}, err error) (v map[string]st
 
 func (c *RedisCluster) Scan(src []interface{}, dst ...interface{}) (v []interface{}, e error) {
 	return redis.Scan(src, dst...)
+}
+
+func (c *RedisCluster) IsNilReply(err error) bool {
+	if strings.Contains(err.Error(), REDIS_CLUSTER_NIL_REPLY) {
+		return true
+	}
+	return false
 }

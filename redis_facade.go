@@ -1,7 +1,6 @@
 package redigogo
 
 import (
-	"errors"
 	"fmt"
 )
 
@@ -72,12 +71,12 @@ type Cache interface {
 	StringMap(result interface{}, err error) (map[string]string, error)
 	Scan(src []interface{}, dst ...interface{}) ([]interface{}, error)
 	Unmarshal(dst interface{}, reply interface{}, err error) error
+	IsNilReply(err error) bool
 }
 
 type Instance func(c *Config) Cache
 
 var AdapterMap = make(map[AdaperType]Instance)
-var ErrNil = errors.New("nil reply") // ErrNil indicates that a reply value is nil.
 
 func Register(adapter AdaperType, inst Instance) (err error) {
 	if _, ok := AdapterMap[adapter]; !ok {
