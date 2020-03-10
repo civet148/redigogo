@@ -132,7 +132,7 @@ func (r *RedisAlone) Unmarshal(dst interface{}, reply interface{}, err error) (e
 	return
 }
 
-func (r RedisAlone) IsNilReply(err error) bool {
+func (r *RedisAlone) IsNilReply(err error) bool {
 	if strings.Contains(err.Error(), REDIS_ALONE_NIL_REPLY) {
 		return true
 	}
