@@ -1,0 +1,9 @@
+package redigogo
+
+const (
+	REDIS_CONN_TIMEOUT    = 500
+	REDIS_READ_TIMEOUT    = 500
+	REDIS_WRITE_TIMEOUT   = 500
+	REDIS_KEEP_ALIVE_TIME = 30
+	REDIS_ALIVE_TIME      = 60
+)

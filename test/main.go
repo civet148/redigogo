@@ -1,17 +1,18 @@
 package main
 
 import (
-	"github.com/civet148/gotools/log"
+	"github.com/civet148/log"
 	"github.com/civet148/redigogo"
 	_ "github.com/civet148/redigogo/alone"
 	_ "github.com/civet148/redigogo/cluster"
+	"github.com/civet148/redigogo/cmd"
 )
 
 func main() {
 	c := redigogo.Config{
 		Password:       "",
 		Index:          0, //default db index on redis
-		MasterHost:     "127.0.0.1:6379",
+		MasterHost:     "192.168.20.105:6379",
 		ReplicateHosts: nil,
 		ConnTimeout:    500,
 		ReadTimeout:    500,
@@ -21,9 +22,9 @@ func main() {
 	}
 	cache := redigogo.NewCache(&c)
 	_ = cache
-	cache.Do(redigogo.REDIS_CMD_SET, "mykey", "123456")
+	cache.Do(cmd.RedisCmdSet, "mykey", "123456")
 
-	if v, err := cache.String(cache.Do(redigogo.REDIS_CMD_GET, "mykey")); err != nil {
+	if v, err := cache.String(cache.Do(cmd.RedisCmdGet, "mykey")); err != nil {
 		log.Debugf("get err %s", err)
 	} else {
 		log.Debugf("get value %s", v)

@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/civet148/redigogo"
+	"github.com/civet148/redigogo/cmd"
 	"github.com/garyburd/redigo/redis"
 	"strings"
 	"time"
@@ -39,14 +40,14 @@ func newCache(c *redigogo.Config) (cache redigogo.Cache) {
 
 			if c.Password != "" {
 				//redis auth password
-				if _, err := r.Do(redigogo.REDIS_CMD_AUTH, c.Password); err != nil {
+				if _, err := r.Do(cmd.RedisCmdAuth, c.Password); err != nil {
 
 					return nil, fmt.Errorf("redis auth password error [%s]", err.Error())
 				}
 			}
 			//redis db select
 			if c.Index != 0 {
-				if _, err := r.Do(redigogo.REDIS_CMD_SELECT, c.Index); err != nil {
+				if _, err := r.Do(cmd.RedisCmdSelect, c.Index); err != nil {
 
 					panic(fmt.Sprintf("redis select db index error [%s]", err))
 				}
@@ -54,7 +55,7 @@ func newCache(c *redigogo.Config) (cache redigogo.Cache) {
 			return r, err
 		},
 		TestOnBorrow: func(c redis.Conn, t time.Time) error {
-			_, err := c.Do(redigogo.REDIS_CMD_PING)
+			_, err := c.Do(cmd.RedisCmdPing)
 			if err != nil {
 				return fmt.Errorf("ping redis error: %s", err)
 			}

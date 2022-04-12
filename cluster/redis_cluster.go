@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/civet148/redigogo"
+	"github.com/civet148/redigogo/cmd"
 	"github.com/gitstliu/go-redis-cluster"
 	"strings"
 	"time"
@@ -42,13 +43,13 @@ func newCache(c *redigogo.Config) (cache redigogo.Cache) {
 		panic(fmt.Sprintf("redis cluster node [%v] connect error [%v] with config [%+v]", StartNodes, err.Error(), c))
 	}
 	//redis auth password
-	if _, err := cluster.Do(redigogo.REDIS_CMD_AUTH, c.Password); err != nil {
+	if _, err := cluster.Do(cmd.RedisCmdAuth, c.Password); err != nil {
 
 		panic(fmt.Sprintf("redis auth error [%s]", err))
 	}
 	//redis db select
 	if c.Index != 0 {
-		if _, err := cluster.Do(redigogo.REDIS_CMD_SELECT, c.Index); err != nil {
+		if _, err := cluster.Do(cmd.RedisCmdSelect, c.Index); err != nil {
 
 			panic(fmt.Sprintf("redis select db index error [%s]", err))
 		}

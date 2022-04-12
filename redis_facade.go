@@ -4,25 +4,6 @@ import (
 	"fmt"
 )
 
-const (
-	REDIS_CMD_AUTH   = "AUTH"
-	REDIS_CMD_SET    = "SET"
-	REDIS_CMD_GET    = "GET"
-	REDIS_CMD_DEL    = "DEL"
-	REDIS_CMD_EVAL   = "EVAL"
-	REDIS_CMD_EXPIRE = "EXPIRE"
-	REDIS_CMD_PING   = "PING"
-	REDIS_CMD_SELECT = "SELECT"
-)
-
-const (
-	REDIS_CONN_TIMEOUT    = 500
-	REDIS_READ_TIMEOUT    = 500
-	REDIS_WRITE_TIMEOUT   = 500
-	REDIS_KEEP_ALIVE_TIME = 30
-	REDIS_ALIVE_TIME      = 60
-)
-
 type Config struct {
 	Password       string   `json:"password"`        //auth password
 	Index          int      `json:"db_index"`        //db index
