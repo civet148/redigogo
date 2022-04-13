@@ -168,10 +168,10 @@ const (
 	RedisCmdPsubscribe   = "Psubscribe"   //订阅一个或多个符合给定模式的频道。
 
 	//地理位置(geo) 命令
-	RedisCmdGEOHASH           = "EOHASH"           //返回一个或多个位置元素的 Geohash 表示
-	RedisCmdGEOPOS            = "EOPOS"            //从key里返回所有给定位置元素的位置（经度和纬度）
-	RedisCmdGEODIST           = "EODIST"           //返回两个给定位置之间的距离
-	RedisCmdGEORADIUS         = "EORADIUS"         //以给定的经纬度为中心， 找出某一半径内的元素
-	RedisCmdGEOADD            = "EOADD"            //将指定的地理空间位置（纬度、经度、名称）添加到指定的key中
-	RedisCmdGEORADIUSBYMEMBER = "EORADIUSBYMEMBER" //找出位于指定范围内的元素，中心点是由给定的位置元素决定
+	RedisCmdGEOHASH           = "GEOHASH"           //返回一个或多个位置元素的 Geohash 表示
+	RedisCmdGEOPOS            = "GEOPOS"            //从key里返回所有给定位置元素的位置（经度和纬度）
+	RedisCmdGEODIST           = "GEODIST"           //返回两个给定位置之间的距离
+	RedisCmdGEORADIUS         = "GEORADIUS"         //以给定的经纬度为中心， 找出某一半径内的元素
+	RedisCmdGEOADD            = "GEOADD"            //将指定的地理空间位置（纬度、经度、名称）添加到指定的key中
+	RedisCmdGEORADIUSBYMEMBER = "GEORADIUSBYMEMBER" //找出位于指定范围内的元素，中心点是由给定的位置元素决定
 )
