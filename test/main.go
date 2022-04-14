@@ -27,6 +27,12 @@ func main() {
 	if v, err := cache.String(cache.Do(cmd.RedisCmdGet, "mykey")); err != nil {
 		log.Debugf("get err %s", err)
 	} else {
-		log.Debugf("get value %s", v)
+		log.Debugf("get value %+v", v)
+	}
+
+	if v, err := cache.Strings(cache.Do(cmd.RedisCmdConfig, "get", "dbfilename")); err != nil {
+		log.Debugf("get err %s", err)
+	} else {
+		log.Debugf("get value %+v", v)
 	}
 }
